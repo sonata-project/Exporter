@@ -19,7 +19,7 @@ final class Handler
 {
     public function __construct(
         private \Iterator $source,
-        private WriterInterface $writer
+        private WriterInterface $writer,
     ) {
     }
 

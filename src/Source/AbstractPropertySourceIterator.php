@@ -44,7 +44,7 @@ abstract class AbstractPropertySourceIterator implements \Iterator
     public function __construct(
         protected array $fields,
         protected string $dateTimeFormat = 'r',
-        protected bool $useBackedEnumValue = true
+        protected bool $useBackedEnumValue = true,
     ) {
         $this->propertyAccessor = PropertyAccess::createPropertyAccessor();
     }

@@ -33,10 +33,10 @@ final class XlsWriter implements TypedWriterInterface
      */
     public function __construct(
         private string $filename,
-        private bool $showHeaders = true
+        private bool $showHeaders = true,
     ) {
         if (is_file($filename)) {
-            throw new \RuntimeException(sprintf('The file %s already exists', $filename));
+            throw new \RuntimeException(\sprintf('The file %s already exists', $filename));
         }
     }
 
@@ -54,7 +54,7 @@ final class XlsWriter implements TypedWriterInterface
     {
         $file = fopen($this->filename, 'w', false);
         if (false === $file) {
-            throw new \Exception(sprintf('Cannot open file %s.', $this->filename));
+            throw new \Exception(\sprintf('Cannot open file %s.', $this->filename));
         }
 
         $this->file = $file;
@@ -78,7 +78,7 @@ final class XlsWriter implements TypedWriterInterface
 
         fwrite($this->getFile(), '<tr>');
         foreach ($data as $value) {
-            fwrite($this->getFile(), sprintf('<td>%s</td>', $value));
+            fwrite($this->getFile(), \sprintf('<td>%s</td>', $value));
         }
         fwrite($this->getFile(), '</tr>');
 
@@ -97,7 +97,7 @@ final class XlsWriter implements TypedWriterInterface
         if ($this->showHeaders) {
             fwrite($this->getFile(), '<tr>');
             foreach ($data as $header => $value) {
-                fwrite($this->getFile(), sprintf('<th>%s</th>', (string) $header));
+                fwrite($this->getFile(), \sprintf('<th>%s</th>', (string) $header));
             }
             fwrite($this->getFile(), '</tr>');
             ++$this->position;

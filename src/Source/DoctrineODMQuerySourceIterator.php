@@ -27,7 +27,7 @@ final class DoctrineODMQuerySourceIterator extends AbstractPropertySourceIterato
         array $fields,
         string $dateTimeFormat = \DateTimeInterface::ATOM,
         private int $batchSize = 100,
-        bool $useBackedEnumValue = true
+        bool $useBackedEnumValue = true,
     ) {
         $this->query = clone $query;
 

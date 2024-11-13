@@ -65,7 +65,7 @@ final class XlsxWriterTest extends TestCase
         $excelWriter = IOFactory::createWriter($spreadsheet, 'Csv');
         $excelWriter->save($this->filenameCsv);
 
-        $expected = sprintf('"john ""2","doe","1"%s', \PHP_EOL);
+        $expected = \sprintf('"john ""2","doe","1"%s', \PHP_EOL);
 
         static::assertSame($expected, file_get_contents($this->filenameCsv));
     }
@@ -86,7 +86,7 @@ final class XlsxWriterTest extends TestCase
         $excelWriter = IOFactory::createWriter($spreadsheet, 'Csv');
         $excelWriter->save($this->filenameCsv);
 
-        $expected = sprintf('"firtname","surname","year"%s"john ""2","doe","1"%s', \PHP_EOL, \PHP_EOL);
+        $expected = \sprintf('"firtname","surname","year"%s"john ""2","doe","1"%s', \PHP_EOL, \PHP_EOL);
 
         static::assertSame($expected, file_get_contents($this->filenameCsv));
     }
