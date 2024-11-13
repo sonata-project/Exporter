@@ -57,7 +57,7 @@ abstract class AbstractXmlSourceIterator implements \Iterator
 
     public function __construct(
         protected string $filename,
-        protected bool $hasHeaders = true
+        protected bool $hasHeaders = true,
     ) {
     }
 
@@ -111,7 +111,7 @@ abstract class AbstractXmlSourceIterator implements \Iterator
 
         $file = fopen($this->filename, 'r');
         if (false === $file) {
-            throw new \Exception(sprintf('Cannot open file %s.', $this->filename));
+            throw new \Exception(\sprintf('Cannot open file %s.', $this->filename));
         }
         $this->file = $file;
 

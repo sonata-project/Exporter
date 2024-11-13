@@ -28,7 +28,7 @@ final class SymfonySitemapSourceIterator implements \Iterator
         private \Iterator $source,
         private RouterInterface $router,
         private string $routeName,
-        private array $parameters = []
+        private array $parameters = [],
     ) {
     }
 

@@ -40,12 +40,12 @@ final class CsvWriter implements TypedWriterInterface
         private string $escape = '\\',
         private bool $showHeaders = true,
         private bool $withBom = false,
-        private string $terminate = "\n"
+        private string $terminate = "\n",
     ) {
         $this->position = 0;
 
         if (is_file($filename)) {
-            throw new \RuntimeException(sprintf('The file %s already exist', $filename));
+            throw new \RuntimeException(\sprintf('The file %s already exist', $filename));
         }
     }
 
@@ -63,7 +63,7 @@ final class CsvWriter implements TypedWriterInterface
     {
         $file = fopen($this->filename, 'w', false);
         if (false === $file) {
-            throw new \Exception(sprintf('Cannot open file %s.', $this->filename));
+            throw new \Exception(\sprintf('Cannot open file %s.', $this->filename));
         }
         $this->file = $file;
 

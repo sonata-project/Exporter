@@ -49,7 +49,7 @@ final class SitemapWriter implements WriterInterface
         private string $folder,
         private string $groupName = '',
         private array $headers = [],
-        private bool $autoIndex = true
+        private bool $autoIndex = true,
     ) {
         $this->pattern = 'sitemap_'.('' !== $this->groupName ? $this->groupName.'_' : '').'%05d.xml';
     }
@@ -120,7 +120,7 @@ final class SitemapWriter implements WriterInterface
     public static function generateSitemapIndex(string $folder, string $baseUrl, string $pattern = 'sitemap*.xml', string $filename = 'sitemap.xml'): void
     {
         $content = "<?xml version='1.0' encoding='UTF-8'?>\n<sitemapindex xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:schemaLocation='http://www.sitemaps.org/schemas/sitemap/1.0 http://www.sitemaps.org/schemas/sitemap/0.9/siteindex.xsd' xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>\n";
-        $files = glob(sprintf('%s/%s', $folder, $pattern));
+        $files = glob(\sprintf('%s/%s', $folder, $pattern));
         if (false === $files) {
             throw new \RuntimeException('Cannot find sitemap files.');
         }
@@ -128,10 +128,10 @@ final class SitemapWriter implements WriterInterface
         foreach ($files as $file) {
             $stat = stat($file);
             if (false === $stat) {
-                throw new \RuntimeException(sprintf('Cannot access to stats of the file %s.', $file));
+                throw new \RuntimeException(\sprintf('Cannot access to stats of the file %s.', $file));
             }
 
-            $content .= sprintf(
+            $content .= \sprintf(
                 "\t".'<sitemap><loc>%s/%s</loc><lastmod>%s</lastmod></sitemap>'."\n",
                 $baseUrl,
                 basename($file),
@@ -141,7 +141,7 @@ final class SitemapWriter implements WriterInterface
 
         $content .= '</sitemapindex>';
 
-        file_put_contents(sprintf('%s/%s', $folder, $filename), $content);
+        file_put_contents(\sprintf('%s/%s', $folder, $filename), $content);
     }
 
     /**
@@ -160,20 +160,20 @@ final class SitemapWriter implements WriterInterface
         ++$this->bufferPart;
 
         if (!is_writable($this->folder)) {
-            throw new \RuntimeException(sprintf('Unable to write to folder: %s', $this->folder));
+            throw new \RuntimeException(\sprintf('Unable to write to folder: %s', $this->folder));
         }
 
-        $filename = sprintf($this->pattern, $this->bufferPart);
+        $filename = \sprintf($this->pattern, $this->bufferPart);
 
         $buffer = fopen($this->folder.'/'.$filename, 'w');
         if (false === $buffer) {
-            throw new \Exception(sprintf('Cannot open file %s.', $this->folder.'/'.$filename));
+            throw new \Exception(\sprintf('Cannot open file %s.', $this->folder.'/'.$filename));
         }
         $this->buffer = $buffer;
 
         $written = fwrite($this->buffer, '<?xml version="1.0" encoding="UTF-8"?>'."\n".'<urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"'.$this->getHeaderByFlag().'>'."\n");
         if (false === $written) {
-            throw new \Exception(sprintf('Cannot write file %s.', $this->folder.'/'.$filename));
+            throw new \Exception(\sprintf('Cannot write file %s.', $this->folder.'/'.$filename));
         }
 
         $this->bufferSize += $written;
@@ -196,7 +196,7 @@ final class SitemapWriter implements WriterInterface
 
         $written = fwrite($this->getBuffer(), $line);
         if (false === $written) {
-            throw new \Exception(sprintf('Cannot write line %s in the buffer.', $line));
+            throw new \Exception(\sprintf('Cannot write line %s in the buffer.', $line));
         }
 
         $this->bufferSize += $written;
@@ -258,7 +258,7 @@ final class SitemapWriter implements WriterInterface
      */
     private function generateDefaultLine(array $data): string
     {
-        return sprintf(
+        return \sprintf(
             '    <url><loc>%s</loc><lastmod>%s</lastmod><changefreq>%s</changefreq><priority>%s</priority></url>'."\n",
             $data['url'],
             (new \DateTime($data['lastmod']))->format('Y-m-d'),
@@ -289,13 +289,13 @@ final class SitemapWriter implements WriterInterface
             $images .= '<image:image>';
 
             foreach ($image as $key => $element) {
-                $images .= sprintf('<image:%1$s>%2$s</image:%1$s>', $builder[$key] ?? $key, $element);
+                $images .= \sprintf('<image:%1$s>%2$s</image:%1$s>', $builder[$key] ?? $key, $element);
             }
 
             $images .= '</image:image>';
         }
 
-        return sprintf('    <url><loc>%s</loc>%s</url>'."\n", $data['url'], $images);
+        return \sprintf('    <url><loc>%s</loc>%s</url>'."\n", $data['url'], $images);
     }
 
     /**
@@ -311,10 +311,10 @@ final class SitemapWriter implements WriterInterface
         ];
 
         foreach ($data['video'] as $key => $video) {
-            $videos .= sprintf('<video:%1$s>%2$s</video:%1$s>', $builder[$key] ?? $key, $video);
+            $videos .= \sprintf('<video:%1$s>%2$s</video:%1$s>', $builder[$key] ?? $key, $video);
         }
 
-        return sprintf('    <url><loc>%s</loc><video:video>%s</video:video></url>'."\n", $data['url'], $videos);
+        return \sprintf('    <url><loc>%s</loc><video:video>%s</video:video></url>'."\n", $data['url'], $videos);
     }
 
     /**

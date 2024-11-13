@@ -61,7 +61,7 @@ final class SonataExporterExtension extends Extension
     {
         foreach ($config as $format => $settings) {
             foreach ($settings as $key => $value) {
-                $container->setParameter(sprintf(
+                $container->setParameter(\sprintf(
                     'sonata.exporter.writer.%s.%s',
                     $format,
                     $key

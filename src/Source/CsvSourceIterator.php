@@ -47,7 +47,7 @@ final class CsvSourceIterator implements \Iterator
         private string $delimiter = ',',
         private string $enclosure = '"',
         private string $escape = '\\',
-        private bool $hasHeaders = true
+        private bool $hasHeaders = true,
     ) {
     }
 
@@ -86,7 +86,7 @@ final class CsvSourceIterator implements \Iterator
     {
         $file = fopen($this->filename, 'r');
         if (false === $file) {
-            throw new \Exception(sprintf('Cannot open file %s.', $this->filename));
+            throw new \Exception(\sprintf('Cannot open file %s.', $this->filename));
         }
         $this->file = $file;
 
