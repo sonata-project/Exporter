@@ -23,7 +23,7 @@ final class FormattedBoolWriter implements WriterInterface
     public function __construct(
         private WriterInterface $writer,
         private string $trueLabel = 'yes',
-        private string $falseLabel = 'no'
+        private string $falseLabel = 'no',
     ) {
     }
 

@@ -34,7 +34,7 @@ final class JsonWriter implements TypedWriterInterface
     public function __construct(private string $filename)
     {
         if (is_file($filename)) {
-            throw new \RuntimeException(sprintf('The file %s already exist', $filename));
+            throw new \RuntimeException(\sprintf('The file %s already exist', $filename));
         }
     }
 
@@ -52,7 +52,7 @@ final class JsonWriter implements TypedWriterInterface
     {
         $file = fopen($this->filename, 'w', false);
         if (false === $file) {
-            throw new \Exception(sprintf('Cannot open file %s.', $this->filename));
+            throw new \Exception(\sprintf('Cannot open file %s.', $this->filename));
         }
 
         $this->file = $file;

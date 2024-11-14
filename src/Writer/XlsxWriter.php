@@ -42,14 +42,14 @@ final class XlsxWriter implements TypedWriterInterface
     public function __construct(
         string $filename,
         private bool $showHeaders = true,
-        private bool $showFilters = true
+        private bool $showFilters = true,
     ) {
         if (!class_exists(Spreadsheet::class)) {
             throw new \LogicException('You need the "phpoffice/spreadsheet" package in order to use the XLSX export.');
         }
 
         if (is_file($filename)) {
-            throw new \InvalidArgumentException(sprintf('The file "%s" already exists.', $filename));
+            throw new \InvalidArgumentException(\sprintf('The file "%s" already exists.', $filename));
         }
 
         $this->filename = $filename;
@@ -189,7 +189,7 @@ final class XlsxWriter implements TypedWriterInterface
         $dateTime = $this->getDateTime($value);
 
         if ($dateTime instanceof \DateTimeInterface) {
-            return sprintf('%s hh:mm:ss', NumberFormat::FORMAT_DATE_DDMMYYYY);
+            return \sprintf('%s hh:mm:ss', NumberFormat::FORMAT_DATE_DDMMYYYY);
         }
 
         return null;

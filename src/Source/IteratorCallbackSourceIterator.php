@@ -26,7 +26,7 @@ final class IteratorCallbackSourceIterator extends IteratorSourceIterator
      */
     public function __construct(
         \Iterator $iterator,
-        private \Closure $transformer
+        private \Closure $transformer,
     ) {
         parent::__construct($iterator);
     }

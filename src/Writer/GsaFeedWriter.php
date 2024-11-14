@@ -44,7 +44,7 @@ final class GsaFeedWriter implements WriterInterface
         private \SplFileInfo $folder,
         private string $dtd,
         private string $datasource,
-        private string $feedtype
+        private string $feedtype,
     ) {
         $this->bufferPart = 0;
         $this->bufferSize = 0;
@@ -57,7 +57,7 @@ final class GsaFeedWriter implements WriterInterface
 
     public function write(array $data): void
     {
-        $line = sprintf(
+        $line = \sprintf(
             "        <record url=\"%s\" mimetype=\"%s\" action=\"%s\"/>\n",
             $data['url'],
             $data['mime_type'],
@@ -71,7 +71,7 @@ final class GsaFeedWriter implements WriterInterface
 
         $written = fwrite($this->getBuffer(), $line);
         if (false === $written) {
-            throw new \Exception(sprintf('Cannot write line %s in the buffer.', $line));
+            throw new \Exception(\sprintf('Cannot write line %s in the buffer.', $line));
         }
 
         $this->bufferSize += $written;
@@ -99,13 +99,13 @@ final class GsaFeedWriter implements WriterInterface
         ++$this->bufferPart;
 
         if (!$this->folder->isWritable()) {
-            throw new \RuntimeException(sprintf('Unable to write to folder: %s', (string) $this->folder));
+            throw new \RuntimeException(\sprintf('Unable to write to folder: %s', (string) $this->folder));
         }
 
-        $filename = sprintf('%s/feed_%05d.xml', (string) $this->folder, $this->bufferPart);
+        $filename = \sprintf('%s/feed_%05d.xml', (string) $this->folder, $this->bufferPart);
         $buffer = fopen($filename, 'w');
         if (false === $buffer) {
-            throw new \Exception(sprintf('Cannot open file %s.', $filename));
+            throw new \Exception(\sprintf('Cannot open file %s.', $filename));
         }
         $this->buffer = $buffer;
 
@@ -125,7 +125,7 @@ final class GsaFeedWriter implements WriterInterface
                 XML
         );
         if (false === $written) {
-            throw new \Exception(sprintf('Cannot write file %s.', $filename));
+            throw new \Exception(\sprintf('Cannot write file %s.', $filename));
         }
 
         $this->bufferSize += $written;

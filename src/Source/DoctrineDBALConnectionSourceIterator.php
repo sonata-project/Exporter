@@ -36,7 +36,7 @@ final class DoctrineDBALConnectionSourceIterator implements \Iterator
     public function __construct(
         private Connection $connection,
         private string $query,
-        private array $parameters = []
+        private array $parameters = [],
     ) {
     }
 

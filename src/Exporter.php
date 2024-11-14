@@ -44,7 +44,7 @@ final class Exporter implements ExporterInterface
     public function getResponse(string $format, string $filename, \Iterator $source): StreamedResponse
     {
         if (!\array_key_exists($format, $this->writers)) {
-            throw new \RuntimeException(sprintf(
+            throw new \RuntimeException(\sprintf(
                 'Invalid "%s" format, supported formats are : "%s"',
                 $format,
                 implode(', ', array_keys($this->writers))
@@ -58,7 +58,7 @@ final class Exporter implements ExporterInterface
         };
 
         $headers = [
-            'Content-Disposition' => sprintf('attachment; filename="%s"', $filename),
+            'Content-Disposition' => \sprintf('attachment; filename="%s"', $filename),
         ];
 
         $headers['Content-Type'] = $writer->getDefaultMimeType();
